@@ -27,9 +27,9 @@ class PasswordCompositionTest extends TestCase
         $innerConstraints = $constraint->getNestedConstraints();
         $lengthConstraint = $this->findConstraint(Assert\Length::class, $innerConstraints);
 
-        $this->assertNotNull($lengthConstraint);
-        $this->assertSame(8, $lengthConstraint->min);
-        $this->assertSame(64, $lengthConstraint->max);
+        self::assertNotNull($lengthConstraint);
+        self::assertSame(8, $lengthConstraint->min);
+        self::assertSame(64, $lengthConstraint->max);
     }
 
     public function testGetConstraintsWithMinLengthOnly(): void
@@ -38,9 +38,9 @@ class PasswordCompositionTest extends TestCase
         $innerConstraints = $constraint->getNestedConstraints();
         $lengthConstraint = $this->findConstraint(Assert\Length::class, $innerConstraints);
 
-        $this->assertNotNull($lengthConstraint);
-        $this->assertSame(10, $lengthConstraint->min);
-        $this->assertNull($lengthConstraint->max);
+        self::assertNotNull($lengthConstraint);
+        self::assertSame(10, $lengthConstraint->min);
+        self::assertNull($lengthConstraint->max);
     }
 
     public function testGetConstraintsWithMaxLengthOnly(): void
@@ -49,9 +49,9 @@ class PasswordCompositionTest extends TestCase
         $innerConstraints = $constraint->getNestedConstraints();
         $lengthConstraint = $this->findConstraint(Assert\Length::class, $innerConstraints);
 
-        $this->assertNotNull($lengthConstraint);
-        $this->assertNull($lengthConstraint->min);
-        $this->assertSame(128, $lengthConstraint->max);
+        self::assertNotNull($lengthConstraint);
+        self::assertNull($lengthConstraint->min);
+        self::assertSame(128, $lengthConstraint->max);
     }
 
     public function testGetConstraintsWithMinLowercase(): void
@@ -60,10 +60,10 @@ class PasswordCompositionTest extends TestCase
         $innerConstraints = $constraint->getNestedConstraints();
         $minRegex = $this->findConstraint(MinRegex::class, $innerConstraints);
 
-        $this->assertNotNull($minRegex);
-        $this->assertSame('/[a-z]{2,}/u', $minRegex->pattern);
-        $this->assertSame(2, $minRegex->min);
-        $this->assertSame('password.constraints.lowercase', $minRegex->message);
+        self::assertNotNull($minRegex);
+        self::assertSame('/[a-z]{2,}/u', $minRegex->pattern);
+        self::assertSame(2, $minRegex->min);
+        self::assertSame('password.constraints.lowercase', $minRegex->message);
     }
 
     public function testGetConstraintsWithAllOptions(): void
@@ -83,28 +83,28 @@ class PasswordCompositionTest extends TestCase
 
         $innerConstraints = $constraint->getNestedConstraints();
 
-        $this->assertCount(8, $innerConstraints); // NotBlank, Type, NotCompromised, Length, and 4 MinRegex
+        self::assertCount(8, $innerConstraints); // NotBlank, Type, NotCompromised, Length, and 4 MinRegex
 
         $lengthConstraint = $this->findConstraint(Assert\Length::class, $innerConstraints);
-        $this->assertNotNull($lengthConstraint);
-        $this->assertSame(12, $lengthConstraint->min);
-        $this->assertSame(100, $lengthConstraint->max);
+        self::assertNotNull($lengthConstraint);
+        self::assertSame(12, $lengthConstraint->min);
+        self::assertSame(100, $lengthConstraint->max);
 
-        $regexConstraints = array_values(array_filter($innerConstraints, fn ($c) => $c instanceof MinRegex));
+        $regexConstraints = array_values(array_filter($innerConstraints, static fn($c) => $c instanceof MinRegex));
 
-        $this->assertCount(4, $regexConstraints);
+        self::assertCount(4, $regexConstraints);
 
-        $this->assertSame('/[a-z]{2,}/u', $regexConstraints[0]->pattern);
-        $this->assertSame(2, $regexConstraints[0]->min);
+        self::assertSame('/[a-z]{2,}/u', $regexConstraints[0]->pattern);
+        self::assertSame(2, $regexConstraints[0]->min);
 
-        $this->assertSame('/[A-Z]{3,}/u', $regexConstraints[1]->pattern);
-        $this->assertSame(3, $regexConstraints[1]->min);
+        self::assertSame('/[A-Z]{3,}/u', $regexConstraints[1]->pattern);
+        self::assertSame(3, $regexConstraints[1]->min);
 
-        $this->assertSame('/[0-9]{4,}/u', $regexConstraints[2]->pattern);
-        $this->assertSame(4, $regexConstraints[2]->min);
+        self::assertSame('/[0-9]{4,}/u', $regexConstraints[2]->pattern);
+        self::assertSame(4, $regexConstraints[2]->min);
 
-        $this->assertSame('/[' . preg_quote('!@#$', '/') . ']{1,}/u', $regexConstraints[3]->pattern);
-        $this->assertSame(1, $regexConstraints[3]->min);
+        self::assertSame('/[' . preg_quote('!@#$', '/') . ']{1,}/u', $regexConstraints[3]->pattern);
+        self::assertSame(1, $regexConstraints[3]->min);
     }
 
     /**
@@ -113,7 +113,7 @@ class PasswordCompositionTest extends TestCase
     private function assertContainsInstanceOf(string $class, array $constraints): void
     {
         $found = (bool) $this->findConstraint($class, $constraints);
-        $this->assertTrue($found, "Failed asserting that an instance of '$class' is in the constraint list.");
+        self::assertTrue($found, "Failed asserting that an instance of '$class' is in the constraint list.");
     }
 
     /**
