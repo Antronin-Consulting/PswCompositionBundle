@@ -1,6 +1,7 @@
 vendor/
 bin/
 .phpunit.result.cache
+codecoverage.xml
 
 ###> phpstan/phpstan ###
 phpstan.neon
