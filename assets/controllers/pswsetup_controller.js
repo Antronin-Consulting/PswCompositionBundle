@@ -6,7 +6,7 @@
 /* stimulusFetch: 'lazy' */
 import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
-    static values = {setup: String }
+    static values = { setup: String }
     static targets = ['psw_setup_display'];
 
     connect() {
@@ -25,7 +25,7 @@ export default class extends Controller {
         }
         if (this.setup.minNumber) {
             this.minSpecial = parseInt(this.setup.minSpecial);
-            this.specialPattern = new RegExp('[' + this.setup.specialsPattern + ']{' + this.minSpecial + ',}','u');
+            this.specialPattern = new RegExp('[' + this.setup.specialsPattern + ']{' + this.minSpecial + ',}', 'u');
         }
         this.input = this.element.getElementsByTagName('input')[0];
 

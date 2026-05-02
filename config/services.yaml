@@ -13,6 +13,7 @@ services:
 
     AntroninConsulting\PswCompositionBundle\:
         resource: '../src/'
+        exclude: '../src/Config/definition.php'
 
     antronin_consulting_psw_composition.validator.constraints.psw_composition:
         class: AntroninConsulting\PswCompositionBundle\Validator\Constraints\PasswordComposition
