@@ -61,7 +61,10 @@
     },
     "extra": {
         "symfony": {
-            "recipe": "recipes/"
+            "endpoint": [
+                "https://api.github.com/repos/Antronin-Consulting/symfony-recipes/contents/index.json",
+                "flex://defaults"
+            ]
         }
     }
 }
